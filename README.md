@@ -1,5 +1,5 @@
 # Hostel-mgmt-Backend 
 
-contibuter 
+contributer 
 @roshankc00
 @Sanyog10

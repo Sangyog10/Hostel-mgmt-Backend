@@ -13,9 +13,6 @@ const errorHandlerMiddleware = require("./middlewares/error-handler");
 app.use(express.json());
 app.use(cookieParser(process.env.SECRET_KEY));
 
-app.get("/", (req, res) => {
-  console.log(req.signedCookies);
-});
 app.use("/api/v1/auth", userRoutes);
 
 app.use(errorHandlerMiddleware);

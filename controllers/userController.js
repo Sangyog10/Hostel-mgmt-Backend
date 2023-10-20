@@ -4,11 +4,11 @@ const { StatusCodes } = require("http-status-codes");
 const { createToken, sendCookieToResponse } = require("../utils");
 
 const register = async (req, res) => {
-  const { name, email, phone, password } = req.body;
+  const { email } = req.body;
 
-  const numberAlreadyExist = await User.findOne({ phone });
-  if (numberAlreadyExist) {
-    throw new CustomError.BadRequestError("Please register with new number");
+  const emailAlreadyExist = await User.findOne({ email });
+  if (emailAlreadyExist) {
+    throw new CustomError.BadRequestError("Please register with new email");
   }
   const user = await User.create(req.body);
   const userToken = createToken(user);
@@ -17,11 +17,11 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { phone, password } = req.body;
-  if (!phone || !password) {
+  const { email, password } = req.body;
+  if (!email || !password) {
     throw new CustomError.BadRequestError("Enter both Email and Password");
   }
-  const user = await User.findOne({ phone });
+  const user = await User.findOne({ email });
   if (!user) {
     throw new CustomError.BadRequestError("User not found");
   }

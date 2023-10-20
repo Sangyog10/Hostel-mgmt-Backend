@@ -13,7 +13,7 @@ const register = async (req, res) => {
   const user = await User.create(req.body);
   const userToken = createToken(user);
   sendCookieToResponse({ res, user: userToken });
-  res.status(StatusCodes.CREATED).json({ user });
+  res.status(StatusCodes.CREATED).json({ msg: "User registered !!" });
 };
 
 const login = async (req, res) => {
@@ -31,7 +31,13 @@ const login = async (req, res) => {
   }
   const userToken = createToken(user);
   sendCookieToResponse({ res, user: userToken });
-  res.status(StatusCodes.OK).json({ user });
+  res.status(StatusCodes.OK).json({
+    name: user.name,
+    userId: user._id,
+    email: user.email,
+    phone: user.phone,
+    role: user.role,
+  });
 };
 
 module.exports = { register, login };
